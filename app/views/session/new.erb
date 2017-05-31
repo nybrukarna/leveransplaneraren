@@ -1,0 +1,7 @@
+<% form_tag('/session/create') do %>
+  <%= label_tag :email, :class => 'first' %>
+  <%= text_field_tag :email, :value => params[:email] %>
+  <% field_set_tag(:class => 'buttons') do %>
+    <%= submit_tag "Log in" %>
+  <% end %>
+<% end %>

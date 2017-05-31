@@ -1,0 +1,9 @@
+---
+:orm: activerecord
+:test: rspec
+:mock: none
+:script: jquery
+:renderer: erb
+:stylesheet: sass
+:namespace: Leverans
+:migration_format: number

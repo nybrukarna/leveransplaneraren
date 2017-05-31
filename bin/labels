@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + "/../lib/")
+Dir[File.expand_path(File.dirname(__FILE__) + "/../lib/**/*.rb")].each(&method(:require))
+data = CSV.read(File.expand_path(File.dirname(__FILE__) + "/../spec/fixtures/users.csv"))
+users = Leverans::Users.new(data)
+
+[22,24].each do |week|
+  Leverans::Pdf::Labels.new(users, week)
+end

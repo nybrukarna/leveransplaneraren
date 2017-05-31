@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+#
+require 'thor'
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + "/../lib/")
+Dir[File.expand_path(File.dirname(__FILE__) + "/../lib/**/*.rb")].each(&method(:require))
+
+class LeveransCLI < Thor
+
+  desc "plocklista", "Generate a test plocklista"
+  def plocklista
+    require 'csv'
+    data = CSV.read(File.expand_path(File.dirname(__FILE__) + "/../spec/fixtures/users.csv"))
+    users = Leverans::Users.new(data.map do |row|
+        Leverans::User.new(row, 0, nil)
+    end)
+
+    list = Leverans::Pdf::PackingList.new(users)
+
+    puts "rendered file.pdf"
+    list.render_file('file.pdf')
+  end
+
+end
+
+LeveransCLI.start(ARGV)

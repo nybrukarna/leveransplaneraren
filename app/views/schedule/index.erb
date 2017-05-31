@@ -1,0 +1,18 @@
+<% form_tag('schedule/save', class: 'form-inline') do %>
+<table class="table">
+  <th>
+    <td>Vecka</td>
+    <% weeks.each do |w| %>
+      <td><b><%= w %></b></td>
+    <% end %>
+  </th>
+  <tr>
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+    <% user.schedule.each_with_index do |week, index| %>
+      <td><%= check_box_tag "schedule[#{index}]", checked: week %></td>
+    <% end %>
+  </tr>
+  </table>
+  <button type="submit" class="btn btn-primary">Spara</button>
+<% end %>
