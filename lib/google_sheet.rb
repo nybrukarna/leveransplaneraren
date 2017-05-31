@@ -8,7 +8,6 @@ module Leverans
     def initialize(sheet)
       @session_file = 'nybrukarna-f38b5301abf8.json'
       @worksheet = session.spreadsheet_by_key(sheet).worksheets[0]
-      puts @worksheet.to_a
       @users = []
       @weeks = []
       load_worksheet!
@@ -27,7 +26,7 @@ module Leverans
     end
 
     def session
-      GoogleDrive::Session.from_service_account_key(File.join(@session_file))
+      GoogleDrive::Session.from_service_account_key(File.expand_path(File.join(File.dirname(__FILE__), @session_file)))
     end
 
     def update_row(row, column, information)
