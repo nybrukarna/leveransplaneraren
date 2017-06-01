@@ -6,3 +6,9 @@ body {
   max-width: 330px;
   margin: 0 auto;
 }
+
+.footer {
+  text-align: center;
+  font-size: 0.87em;
+  color: #ccc;
+}

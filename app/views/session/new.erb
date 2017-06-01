@@ -1,7 +1,15 @@
-<% form_tag('/session/create') do %>
-  <%= label_tag :email, :class => 'first' %>
-  <%= text_field_tag :email, :value => params[:email] %>
-  <% field_set_tag(:class => 'buttons') do %>
-    <%= submit_tag "Log in" %>
-  <% end %>
-<% end %>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+  <div class="well well-lg">
+    <% form_tag('/session/create', class: 'form-signin') do %>
+      <h2 class="form-signin-header">Logga in</h2>
+      <div class="form-group">
+        <label class="sr-only" for="email">E-postaddress</label>
+        <input type="email" class="form-control" id="email" placeholder="E-post" name="email">
+      </div>
+      <button type="submit" class="btn btn-default">Logga in</button>
+    <% end %>
+  </div>
+  </div>
+</div>

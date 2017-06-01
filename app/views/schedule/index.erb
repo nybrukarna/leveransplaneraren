@@ -1,18 +1,22 @@
+<h1>Leverans</h1>
+<p>
+  Välj vilka veckor du vill ha leverans. Om du...
+</p>
 <% form_tag('schedule/save', class: 'form-inline') do %>
 <table class="table">
   <th>
     <td>Vecka</td>
     <% weeks.each do |w| %>
-      <td><b><%= w %></b></td>
+      <td style="text-align:center;"><b><code><%= w %></code></b></td>
     <% end %>
   </th>
   <tr>
-    <td><%= user.name %></td>
-    <td><%= user.email %></td>
+    <td></td>
+    <td></td>
     <% user.schedule.each_with_index do |week, index| %>
-      <td><%= check_box_tag "schedule[#{index}]", checked: week %></td>
+      <td style="text-align:center;"><%= check_box_tag "schedule[#{index}]", checked: week %></td>
     <% end %>
   </tr>
   </table>
-  <button type="submit" class="btn btn-primary">Spara</button>
+  <button type="submit" class="btn btn-primary pull-right">Spara ändringar</button>
 <% end %>
