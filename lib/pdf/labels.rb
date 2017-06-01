@@ -21,9 +21,8 @@ module Leverans
             "row_gutter"=> 0
           }}
 
-        @users = users.week(week)
-
-        basedir = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'public', 'images'))
+        @users = users
+        @basedir = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'public', 'images'))
       end
 
       def generate(filename)
@@ -33,13 +32,13 @@ module Leverans
       end
 
       def render
-        @labels = Prawn::Labels.render(@users, :type => "herma4227") do |pdf, user|
+        Prawn::Labels.render(@users, :type => "herma4227") do |pdf, user|
           label(pdf, user)
         end
       end
 
       def label(pdf, user)
-        pdf.image File.join(basedir, 'logo.png'), width: 60*MM
+        pdf.image File.join(@basedir, 'logo.png'), width: 60*MM
         pdf.text user.name
         pdf.text user.share
       end

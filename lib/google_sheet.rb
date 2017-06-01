@@ -8,17 +8,8 @@ module Leverans
     def initialize(sheet)
       @session_file = 'nybrukarna-f38b5301abf8.json'
       @worksheet = session.spreadsheet_by_key(sheet).worksheets[0]
-      @users = []
-      @weeks = []
-      load_worksheet!
-    end
-
-    def load_worksheet!
-      @worksheet.rows.each_with_index do |row, index|
-        next if index.zero?
-        @users << Leverans::User.new(row, index, @worksheet) unless row[1].blank?
-      end
-      @weeks = @worksheet.rows[0][4..-1]
+      @users = Leverans::Users.new(@worksheet.rows, worksheet: @worksheet)
+      @weeks = @users.weeks
     end
 
     def user(email)
@@ -36,7 +27,5 @@ module Leverans
     def save
       @worksheet.save
     end
-
-    # User object in row
   end
 end

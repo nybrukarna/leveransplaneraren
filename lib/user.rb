@@ -10,9 +10,10 @@ module Leverans
     def initialize(rows, header: true, worksheet: false)
       @users = []
       @worksheet = worksheet
-      @header = header ? rows.shift : []
+      @header = header ? rows[0] : []
       rows.each_with_index do |row, index|
-        @users << Leverans::User.new(row, index, worksheet)
+        next if index.zero? && header
+        @users << Leverans::User.new(row, index, worksheet) unless row[1].blank?
       end
       @users = @users.sort_by do |u|
         u.share_id
@@ -22,6 +23,10 @@ module Leverans
     # List of available picksups
     def pickups
       @users.map { |u| u.pickup }.uniq
+    end
+
+    def user_by_email(email)
+      @users.select { |u| u.email.downcase == email.downcase }.first
     end
 
     # List of available shares
@@ -64,7 +69,7 @@ module Leverans
   class User
     attr_reader :row_number, :name, :email, :share, :pickup
 
-    SHARE_SORT = ['Singel', 'Par', 'Familj']
+    SHARE_SORT = ['singel', 'par', 'familj']
 
     def initialize(user, row_number, worksheet)
       @user = user
@@ -77,7 +82,7 @@ module Leverans
     end
 
     def share_id
-      SHARE_SORT.index(share)
+      SHARE_SORT.index(share.downcase)
     end
 
     def save

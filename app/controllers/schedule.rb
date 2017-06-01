@@ -7,14 +7,14 @@ Leverans::App.controllers :schedule do
 
   get :index, protect: true do
     sheet = Leverans::Sheet.new(settings.google_sheet)
-    user = sheet.user(session[:current_user])
+    user = sheet.users.user_by_email(session[:current_user])
     weeks = sheet.weeks
     render 'schedule/index', locals: { user: user, weeks: weeks }
   end
 
   post :save, protect: true do
     sheet = Leverans::Sheet.new(settings.google_sheet)
-    user = sheet.user(session[:current_user])
+    user = sheet.users.user_by_email(session[:current_user])
     schedule = Array.new(sheet.weeks.size, false)
     params['schedule'].each do |key, _|
       schedule[key.to_i] = true
