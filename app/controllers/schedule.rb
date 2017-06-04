@@ -15,14 +15,18 @@ Leverans::App.controllers :schedule do
   post :save, protect: true do
     sheet = Leverans::Sheet.new(settings.google_sheet)
     user = sheet.users.user_by_email(session[:current_user])
-    schedule = Array.new(sheet.weeks.size, false)
-    params['schedule'].each do |key, _|
-      schedule[key.to_i] = true
+    new_schedule = Array.new(sheet.weeks.size)
+    params['schedule'].each do |key, value|
+      if value == 'true' || value == 'on'
+        new_schedule[key.to_i] = true
+      else
+        new_schedule[key.to_i] = false
+      end
     end
-    user.schedule = schedule
+    user.schedule=new_schedule
     user.save
     flash[:success] = 'Dina ändringar har sparats!'
-    Padrino.logger.info schedule
+    Padrino.logger.info new_schedule
     redirect 'schedule'
   end
 end

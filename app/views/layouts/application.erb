@@ -30,7 +30,7 @@
           <span class="icon-bar"></span>
           </button>
           -->
-          <a class="navbar-brand" href="/">Nybrukarna Leverans</a>
+          <a class="navbar-brand" href="/"><img src="/images/logo.png" height="20"></a>
         </div>
           <!--
         <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
@@ -41,7 +41,8 @@
         </div>
           -->
           <% unless session[:current_user].blank? %>
-          <p class="navbar-text navbar-right">Inloggad som <b><%= session[:user][:name] %></b>. <a href="/session/destroy">Logga ut</a></p>
+            <a class="btn btn-default navbar-btn navbar-right" href="/session/destroy">Logga ut</a>
+            <p class="navbar-text navbar-right"> Inloggad som <b><%= session[:user][:name] %> (<%= session[:user][:email] %>)</b>&nbsp;&nbsp;</p>
           <% end %>
         </div>
       </div>

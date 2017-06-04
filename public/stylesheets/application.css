@@ -12,3 +12,12 @@ body {
   font-size: 0.87em;
   color: #ccc;
 }
+
+.week {
+  color: #c7254e;
+  font-weight: bold;
+}
+
+.week.disabled {
+  color: #ccc;
+}
