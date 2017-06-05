@@ -42,6 +42,10 @@ module Leverans
       def render_file(name)
         @document.render_file(name)
       end
+
+      def render
+        @document.render
+      end
     end
   end
 end
