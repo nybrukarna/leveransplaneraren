@@ -30,13 +30,12 @@ Och därefter kommer:
 Svinn vill vi undvika, så vill du avboka fler än 4 lådor, eller vill du som inte har valt semesteruppehåll avboka lådor går det förstås bra. Månadskostnaden ändras dock inte, utan du får alltså betala för avbokade lådor. Det går också bra att ge bort sin låda därmed be sin vän, granne eller liknande att hämta den.
 </p>
 
-<% week_now = DateTime.now.cweek.to_i %>
 <% form_tag('schedule/save', class: 'form-inline') do %>
 <table class="table">
   <th>
     <td><b>Vecka</b></td>
     <% weeks.each do |w| %>
-      <td style="text-align:center;"><span class="week<%= w.to_i > week_now ? '' : ' disabled' %>"><%= w %></span></td>
+      <td style="text-align:center;"><span class="week<%= !week_is_disabled(w) ? '' : ' disabled' %>"><%= w %></span></td>
     <% end %>
   </th>
   <tr>
@@ -44,10 +43,10 @@ Svinn vill vi undvika, så vill du avboka fler än 4 lådor, eller vill du som i
     <td></td>
     <% user.schedule.each_with_index do |week, index| %>
       <td style="text-align:center;">
-        <% if !(weeks[index].to_i > week_now) %>
+        <% if week_is_disabled(weeks[index]) %>
         <input type="hidden" name="schedule[<%= index %>]" value="<%=week%>">
         <% end %>
-        <%= check_box_tag "schedule[#{index}]", checked: week, disabled: !(weeks[index].to_i > week_now), value: week %>
+        <%= check_box_tag "schedule[#{index}]", checked: week, disabled: week_is_disabled(weeks[index]), value: week %>
       </td>
     <% end %>
   </tr>

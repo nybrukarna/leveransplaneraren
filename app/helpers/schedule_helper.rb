@@ -3,9 +3,10 @@
 module Leverans
   class App
     module ScheduleHelper
-      # def simple_helper_method
-      # ...
-      # end
+      def week_is_disabled(week)
+        date = DateTime.now
+        week.to_i <= date.cweek && date.wday > 1
+      end
     end
 
     helpers ScheduleHelper
