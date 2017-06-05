@@ -35,6 +35,8 @@ gem 'padrino', '0.13.3.3'
 gem 'unicorn'
 gem 'foreman'
 
+gem 'airbrake', '~> 6.1'
+
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'
 
