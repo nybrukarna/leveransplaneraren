@@ -34,7 +34,7 @@ Svinn vill vi undvika, så vill du avboka fler än 4 lådor, eller vill du som i
 <% form_tag('schedule/save', class: 'form-inline') do %>
 <table class="table">
   <th>
-    <td>Vecka</td>
+    <td><b>Vecka</b></td>
     <% weeks.each do |w| %>
       <td style="text-align:center;"><span class="week<%= w.to_i > week_now ? '' : ' disabled' %>"><%= w %></span></td>
     <% end %>
