@@ -5,7 +5,7 @@ Leverans::App.controllers :session do
       redirect '/session/new'
     end
     sheet = Leverans::Sheet.new(settings.google_sheet)
-    user = sheet.users.select { |u| u.email.downcase == params[:email].downcase }.first
+    user = sheet.users.select { |u| u.email.downcase.strip == params[:email].downcase.strip }.first
     unless user.nil?
       session[:current_user] = user.email
       session[:user] = user.to_h
