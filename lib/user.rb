@@ -85,6 +85,18 @@ module Leverans
       SHARE_SORT.index(share.downcase)
     end
 
+    def email
+      @email.strip.downcase
+    end
+
+    def share
+      @share.strip.capitalize
+    end
+
+    def pickup
+      @pickup.strip.capitalize
+    end
+
     def save
       @worksheet.save
     end
