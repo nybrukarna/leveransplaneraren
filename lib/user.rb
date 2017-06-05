@@ -13,7 +13,7 @@ module Leverans
       @header = header ? rows[0] : []
       rows.each_with_index do |row, index|
         next if index.zero? && header
-        @users << Leverans::User.new(row, index, worksheet) unless row[1].blank?
+        @users << Leverans::User.new(row, index, worksheet) unless row[1].empty?
       end
       @users = @users.sort_by do |u|
         u.share_id

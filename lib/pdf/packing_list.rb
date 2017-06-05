@@ -25,15 +25,21 @@ module Leverans
           p.size
         end]
 
+        @document.text "<font size='20'><b>Vecka #{week}</b></font>", inline_format: true
+
         @document.table(matrix)
 
         @document.move_down(20)
 
         @users.by_pickup.each do |pickup, users|
-          @document.text pickup
+          @document.text "<font size='16'><b>#{pickup}</b></font>", inline_format: true
           @document.move_down 5
-          users.each do |u|
-            @document.text "#{u.name}, #{u.share}"
+          users.group_by(&:share).each do |share, u|
+            @document.text "<b>#{share}</b>", inline_format: true
+            u.each do |us|
+              @document.text "#{us.name}"
+            end
+            @document.move_down 10
           end
           @document.move_down 10
         end
