@@ -23,7 +23,7 @@ module Leverans
         end
         matrix << ['', *@users.by_pickup.collect do |m, p|
           p.size
-        end]
+        end, @users.size]
 
         @document.text "<font size='20'><b>Vecka #{week}</b></font>", inline_format: true
 
