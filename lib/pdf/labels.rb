@@ -23,10 +23,11 @@ module Leverans
 
         @users = users
         @basedir = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'public', 'images'))
+        @week = week
       end
 
       def generate(filename)
-        @labels = Prawn::Labels.generate("labels_#{week}.pdf", @users, :type => "herma4227") do |pdf, user|
+        @labels = Prawn::Labels.generate("labels_#{@week}.pdf", @users, :type => "herma4227") do |pdf, user|
           label(pdf, user)
         end
       end
@@ -38,9 +39,11 @@ module Leverans
       end
 
       def label(pdf, user)
-        pdf.image File.join(@basedir, 'logo.png'), width: 60*MM
-        pdf.text user.name
-        pdf.text user.share
+        pdf.text "<b>#{user.name}</b>", inline_format: true, align: :center
+        pdf.move_down 8
+        pdf.text "<font size='9'>#{@week} / #{user.share} / #{user.pickup}</font>", inline_format: true, align: :center
+        pdf.move_down 8
+        pdf.image File.join(@basedir, 'logo.png'), width: 60*MM, position: :center
       end
     end
   end
