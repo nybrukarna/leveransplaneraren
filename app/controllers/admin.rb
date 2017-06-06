@@ -6,7 +6,7 @@ Leverans::App.controllers :admin do
     render 'admin/index', locals: { weeks: weeks }
   end
 
-  get :label, with: :week do
+  get :etiketter, map: "/admin/etiketter_v:week.pdf" do
     week = params[:week]
     sheet = Leverans::Sheet.new(settings.google_sheet)
     unless sheet.users.weeks.include?(week)
@@ -21,7 +21,7 @@ Leverans::App.controllers :admin do
     end
   end
 
-  get :packinglist, with: :week do
+  get :packlista, map: "/admin/packlista_v:week.pdf" do
     week = params[:week]
     sheet = Leverans::Sheet.new(settings.google_sheet)
     unless sheet.users.weeks.include?(week)
