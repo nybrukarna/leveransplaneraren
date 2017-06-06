@@ -1,7 +1,9 @@
 Leverans::App.controllers :admin do
 
   get :index do
-
+    sheet = Leverans::Sheet.new(settings.google_sheet)
+    weeks = sheet.weeks
+    render 'admin/index', locals: { weeks: weeks }
   end
 
   get :label, with: :week do

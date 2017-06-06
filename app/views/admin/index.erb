@@ -1,0 +1,22 @@
+<h1>PDF</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Packlista</h3>
+  </div>
+  <div class="panel-body">
+    <% weeks.each do |week| %>
+      <a class="btn <%= week.to_i == DateTime.now.cweek ? "btn-primary" : "btn-default" %>" href="/admin/packinglist/<%= week %>" role="button"><%= week %></a>
+    <% end %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Etiketter</h3>
+  </div>
+  <div class="panel-body">
+    <% weeks.each do |week| %>
+      <a class="btn <%= week.to_i == DateTime.now.cweek ? "btn-primary" : "btn-default" %>" href="/admin/label/<%= week %>" role="button"><%= week %></a>
+    <% end %>
+  </div>
+</div>
