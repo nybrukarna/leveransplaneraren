@@ -5,7 +5,7 @@
   </div>
   <div class="panel-body">
     <% weeks.each do |week| %>
-      <a class="btn <%= week.to_i == DateTime.now.cweek ? "btn-primary" : "btn-default" %>" href="/admin/packinglist/<%= week %>" role="button"><%= week %></a>
+      <a class="btn <%= week.to_i == DateTime.now.cweek ? "btn-primary" : "btn-default" %>" href="/admin/packinglist/<%= week %>" role="button" target="_blank"><%= week %></a>
     <% end %>
   </div>
 </div>
@@ -16,7 +16,7 @@
   </div>
   <div class="panel-body">
     <% weeks.each do |week| %>
-      <a class="btn <%= week.to_i == DateTime.now.cweek ? "btn-primary" : "btn-default" %>" href="/admin/label/<%= week %>" role="button"><%= week %></a>
+      <a class="btn <%= week.to_i == DateTime.now.cweek ? "btn-primary" : "btn-default" %>" href="/admin/label/<%= week %>" role="button" target="_blank"><%= week %></a>
     <% end %>
   </div>
 </div>

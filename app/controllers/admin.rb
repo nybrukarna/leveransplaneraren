@@ -16,7 +16,7 @@ Leverans::App.controllers :admin do
       users = sheet.users.week(week)
       pdf = Leverans::Pdf::Labels.new(users, week)
       content_type :pdf
-      attachment("labels_v#{week}.pdf")
+      #attachment("etiketter_v#{week}.pdf")
       response.write(pdf.render)
     end
   end
@@ -31,7 +31,7 @@ Leverans::App.controllers :admin do
       users = sheet.users.week(week)
       pdf = Leverans::Pdf::PackingList.new(users, week)
       content_type :pdf
-      attachment("packlinglist_v#{week}.pdf")
+      #attachment("packlista_v#{week}.pdf")
       response.write(pdf.render)
     end
   end
