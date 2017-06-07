@@ -5,7 +5,7 @@ module Leverans
 
     extend Forwardable
     attr_reader :users, :header, :worksheet
-    def_delegators :@users, :map, :size, :[], :empty?, :each_with_index, :select
+    def_delegators :@users, :map, :size, :[], :empty?, :each_with_index, :select, :sort, :sort_by
 
     def initialize(rows, header: true, worksheet: false)
       @users = []
