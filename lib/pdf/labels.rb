@@ -1,5 +1,6 @@
 require 'prawn'
 require 'prawn/labels'
+require 'prawn/measurement_extensions'
 
 module Leverans
   module Pdf
@@ -12,16 +13,19 @@ module Leverans
         Prawn::Labels.types = {
           "herma4227" => {
             "paper_size"=> "A4",
-            "top_margin"=> 13.03*MM,
-            "bottom_margin"=> 13.03*MM,
-            "left_margin"=> 8.1*MM,
-            "right_margin"=> 8.1*MM,
+            "top_margin"=> 13.03.mm,
+            "bottom_margin"=> 13.03.mm,
+            "left_margin"=> 8.1.mm,
+            "right_margin"=> 8.1.mm,
             "columns"=> 3,
             "rows"=> 8,
             "row_gutter"=> 0
           }}
 
-        @users = users
+        # Sortering
+        # Utlamningsplats - andel
+        # Helst ska utlamningsplatserna vara sorterasde i ordningen Tolg, Lädja, Ör och sen resten
+        @users = users.sort_by(&:pickup)
         @basedir = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'public', 'images'))
         @week = week
       end
@@ -39,11 +43,12 @@ module Leverans
       end
 
       def label(pdf, user)
+        pdf.move_down 8
         pdf.text "<b>#{user.name}</b>", inline_format: true, align: :center
         pdf.move_down 8
         pdf.text "<font size='9'>#{@week} / #{user.share} / #{user.pickup}</font>", inline_format: true, align: :center
         pdf.move_down 8
-        pdf.image File.join(@basedir, 'logo.png'), width: 60*MM, position: :center
+        pdf.image File.join(@basedir, 'logo.png'), width: 50.mm, position: :center
       end
     end
   end
