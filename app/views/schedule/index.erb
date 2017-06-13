@@ -33,14 +33,14 @@ Svinn vill vi undvika, så vill du avboka fler än 4 lådor, eller vill du som i
   <th>
     <td><b>Vecka</b></td>
     <% weeks.each do |w| %>
-      <td style="text-align:center;"><span class="week<%= !week_is_disabled(w) ? '' : ' disabled' %>"><%= w %></span></td>
+      <td style="text-align:center;" class="week<%= !week_is_disabled(w) ? '' : ' disabled' %><%= w.to_i == DateTime.now.cweek ? ' current' : '' %>"><span ><%= w %></span></td>
     <% end %>
   </th>
   <tr>
     <td></td>
     <td></td>
     <% user.schedule.each_with_index do |week, index| %>
-      <td style="text-align:center;">
+      <td style="text-align:center;" class="week<%= !week_is_disabled(weeks[index]) ? '' : ' disabled' %><%= weeks[index].to_i == DateTime.now.cweek ? ' current' : '' %>">
         <% if week_is_disabled(weeks[index]) %>
         <input type="hidden" name="schedule[<%= index %>]" value="<%=week%>">
         <% end %>

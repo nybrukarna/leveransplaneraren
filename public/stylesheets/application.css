@@ -21,3 +21,8 @@ body {
 .week.disabled {
   color: #ccc;
 }
+
+.week.disabled.current {
+  color: #999;
+  background-color: #eee;
+}
