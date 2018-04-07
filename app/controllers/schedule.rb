@@ -9,7 +9,8 @@ Leverans::App.controllers :schedule do
     sheet = Leverans::Sheet.new(settings.google_sheet)
     user = sheet.users.user_by_email(session[:current_user])
     weeks = sheet.weeks
-    render 'schedule/index', locals: { user: user, weeks: weeks }
+    weeks_schedule = weeks.zip(user.schedule).to_h
+    render 'schedule/index', locals: { user: user, weeks: weeks, weeks_schedule: weeks_schedule }
   end
 
   post :save, protect: true do

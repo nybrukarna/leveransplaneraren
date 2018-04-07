@@ -30,24 +30,28 @@ Svinn vill vi undvika, så vill du avboka fler än 4 lådor, eller vill du som i
 
 <% form_tag('schedule/save', class: 'form-inline') do %>
 <table class="table">
-  <th>
-    <td><b>Vecka</b></td>
-    <% weeks.each do |w| %>
-      <td style="text-align:center;" class="week<%= !week_is_disabled(w) ? '' : ' disabled' %><%= w.to_i == DateTime.now.cweek ? ' current' : '' %>"><span ><%= w %></span></td>
-    <% end %>
-  </th>
-  <tr>
-    <td></td>
-    <td></td>
-    <% user.schedule.each_with_index do |week, index| %>
-      <td style="text-align:center;" class="week<%= !week_is_disabled(weeks[index]) ? '' : ' disabled' %><%= weeks[index].to_i == DateTime.now.cweek ? ' current' : '' %>">
-        <% if week_is_disabled(weeks[index]) %>
-        <input type="hidden" name="schedule[<%= index %>]" value="<%=week%>">
-        <% end %>
-        <%= check_box_tag "schedule[#{index}]", checked: week, disabled: week_is_disabled(weeks[index]), value: week %>
-      </td>
-    <% end %>
-  </tr>
+  <% index = 0 %>
+  <% weeks_schedule.to_a.each_slice(20) do |ws| %>
+    <th>
+      <td><b>Vecka</b></td>
+      <% ws.each do |week, value| %>
+        <td style="text-align:center;" class="week<%= !week_is_disabled(week) ? '' : ' disabled' %><%= week.to_i == DateTime.now.cweek ? ' current' : '' %>"><span ><%= week %></span></td>
+      <% end %>
+    </th>
+    <tr>
+      <td></td>
+      <td></td>
+      <% ws.each do |week, value| %>
+        <td style="text-align:center;" class="week<%= !week_is_disabled(week) ? '' : ' disabled' %><%= week.to_i == DateTime.now.cweek ? ' current' : '' %>">
+          <% if week_is_disabled(week) %>
+          <input type="hidden" name="schedule[<%= index %>]" value="<%=week%>">
+          <% end %>
+          <%= check_box_tag "schedule[#{index}]", checked: value, disabled: week_is_disabled(week), value: value %>
+          <% index += 1 %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
   </table>
   <button type="submit" class="btn btn-primary pull-right">Spara ändringar</button>
 <% end %>
