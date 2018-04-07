@@ -1,6 +1,12 @@
 Leverans::App.controllers :session do
-  post :create, protect: false do
-    if params[:email].empty?
+  def self.protect(protected)
+    condition do
+      redirect '/' unless authorized?
+    end if protected
+  end
+
+  post :create, protect: false, params: [:email] do
+    if params[:email].nil?
       flash[:alert] = 'Du måste fylla i din e-post.'
       redirect '/session/new'
     end
@@ -16,7 +22,7 @@ Leverans::App.controllers :session do
     redirect '/schedule'
   end
 
-  get :destroy do
+  get :destroy, protect: true do
     session[:current_user] = nil
     session[:user] = nil
     redirect '/'
