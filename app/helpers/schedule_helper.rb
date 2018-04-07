@@ -5,8 +5,8 @@ module Leverans
     module ScheduleHelper
       def week_is_disabled(week)
         date = DateTime.now
-        return false if week.to_i == date.cweek && date.wday == 1
-        week.to_i <= date.cweek
+        return false if week.to_i == date.cweek && date.wday <= 2
+        return week.to_i <= date.cweek
       end
     end
 
