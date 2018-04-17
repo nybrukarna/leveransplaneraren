@@ -8,26 +8,40 @@ module Leverans
         Prawn::Font::AFM.hide_m17n_warning = true
         @document = Prawn::Document.new
         @users = users.week(week)
-        matrix = []
-        matrix << [week, *@users.pickups]
+        pickup_thursday = ['Tolg', 'Lädja', 'Ör', 'Bråna']
+        pickup_friday = ['Rottne', 'Tjureda', 'Växjö c', 'Linneuniversitetet']
+        pickup_all = pickup_thursday + pickup_friday
+        matrix_total = []
+        matrix_total << ["V#{week}", *pickup_all, ""]
+        matrix_thursday = []
+        matrix_thursday << ["V#{week}", *pickup_thursday, ""]
+        matrix_friday = []
+        matrix_friday << ["V#{week}", *pickup_friday, ""]
+
         @users.by_share.each do |share, users|
-          asdf = users.inject({}) do |m, u|
-            m[u.pickup] = 0 if m[u.pickup].nil?
-            m[u.pickup] += 1
-            m
+          m_to = Hash.new{0}
+          users.each do |u|
+            m_to[u.pickup] += 1
           end
-          xx = @users.pickups.collect do |p|
-            asdf[p].nil? ? 0 : asdf[p]
-          end
-          matrix << [share, *xx, xx.reduce(&:+)]
+          mm = pickup_all.map { |p| m_to.fetch(p, 0) }
+          matrix_total << [share, *mm, mm.reduce(&:+)]
+          m_f = pickup_friday.map { |p| m_to[p] }
+          m_t = pickup_thursday.map { |p| m_to[p] }
+          matrix_friday << [share, *m_f, m_f.reduce(&:+)]
+          matrix_thursday << [share, *m_t, m_t.reduce(&:+)]
         end
-        matrix << ['', *@users.by_pickup.collect do |m, p|
-          p.size
-        end, @users.size]
+
+        matrix_total << ["", *matrix_total[1..-1].map {|r| r[1..-1]}.transpose.map(&:sum)]
+        matrix_friday << ["", *matrix_friday[1..-1].map {|r| r[1..-1]}.transpose.map(&:sum)]
+        matrix_thursday << ["", *matrix_thursday[1..-1].map {|r| r[1..-1]}.transpose.map(&:sum)]
 
         @document.text "<font size='20'><b>Vecka #{week}</b></font>", inline_format: true
 
-        @document.table(matrix)
+        @document.table(matrix_total)
+        @document.text "\n<b>Torsdagar</b>", inline_format: true
+        @document.table(matrix_thursday)
+        @document.text "\n<b>Fredagar</b>", inline_format: true
+        @document.table(matrix_friday)
 
         @document.move_down(20)
 
