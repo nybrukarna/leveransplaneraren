@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 #
 require 'thor'
+require 'pry'
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + "/../lib/")
 Dir[File.expand_path(File.dirname(__FILE__) + "/../lib/**/*.rb")].each(&method(:require))
 
@@ -8,16 +9,19 @@ class LeveransCLI < Thor
 
   desc "plocklista", "Generate a test plocklista"
   def plocklista
-    require 'csv'
-    data = CSV.read(File.expand_path(File.dirname(__FILE__) + "/../spec/fixtures/users.csv"))
-    users = Leverans::Users.new(data.map do |row|
-        Leverans::User.new(row, 0, nil)
-    end)
+    #data = CSV.read(File.expand_path(File.dirname(__FILE__) + "/../spec/fixtures/users.csv"))
+    #users = Leverans::Users.new(data.map do |row|
+    #    Leverans::User.new(row, 0, nil)
+    #end)
 
-    list = Leverans::Pdf::PackingList.new(users)
+    #list = Leverans::Pdf::PackingList.new(users)
 
+    week = 16
+    sheet = Leverans::Sheet.new("12Fv6rbaqXAGh0lMUvidKCTCMHGuyvK0qWygoMpBBQ8E")
+    users = sheet.users.week(week)
+    pdf = Leverans::Pdf::PackingList.new(users, week)
     puts "rendered file.pdf"
-    list.render_file('file.pdf')
+    pdf.render_file('file.pdf')
   end
 
 end
