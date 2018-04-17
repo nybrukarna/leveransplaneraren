@@ -5,7 +5,7 @@ module Leverans
 
     extend Forwardable
     attr_reader :users, :header, :worksheet
-    def_delegators :@users, :map, :size, :[], :empty?, :each_with_index, :select, :sort, :sort_by
+    def_delegators :@users, :map, :size, :[], :empty?, :each_with_index, :select, :sort, :sort_by, :first, :last
 
     def initialize(rows, header: true, worksheet: false)
       @users = []
@@ -18,6 +18,14 @@ module Leverans
       @users = @users.sort_by do |u|
         u.share_id
       end
+    end
+
+    def marshal_dump
+      [@users, @header]
+    end
+
+    def marshal_load(array)
+      @users, @header = array
     end
 
     # List of available picksups
@@ -69,7 +77,7 @@ module Leverans
   class User
     attr_reader :row_number, :name, :email, :share, :pickup
 
-    SHARE_SORT = ['singel', 'par', 'familj']
+    SHARE_SORT = ['1 andel', '2 andelar', '3 andelar']
 
     def initialize(user, row_number, worksheet)
       @user = user
