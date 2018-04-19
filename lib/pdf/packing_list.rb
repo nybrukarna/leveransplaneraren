@@ -1,5 +1,6 @@
 require 'prawn'
 require 'prawn/table'
+require 'pry'
 
 module Leverans
   module Pdf
@@ -8,8 +9,8 @@ module Leverans
         Prawn::Font::AFM.hide_m17n_warning = true
         @document = Prawn::Document.new
         @users = users.week(week)
-        pickup_thursday = ['Tolg', 'Lädja', 'Ör', 'Bråna']
-        pickup_friday = ['Rottne', 'Tjureda', 'Växjö c', 'Linneuniversitetet']
+        pickup_friday = ['Tolg', 'Lädja', 'Ör', 'Bråna']
+        pickup_thursday = ['Rottne', 'Tjureda', 'Växjö c', 'Linneuniversitetet']
         pickup_all = pickup_thursday + pickup_friday
         matrix_total = []
         matrix_total << ["V#{week}", *pickup_all, ""]
