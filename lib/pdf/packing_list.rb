@@ -1,6 +1,5 @@
 require 'prawn'
 require 'prawn/table'
-require 'pry'
 
 module Leverans
   module Pdf
