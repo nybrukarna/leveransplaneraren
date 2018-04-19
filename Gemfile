@@ -12,6 +12,7 @@ source 'https://rubygems.org'
 
 # Optional JSON codec (faster performance)
 # gem 'oj'
+gem 'pry'
 
 # Project requirements
 gem 'rake'
