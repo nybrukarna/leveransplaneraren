@@ -9,7 +9,7 @@ module Leverans
         @document = Prawn::Document.new
         @users = users.week(week)
         pickup_friday = ['Tolg', 'Lädja', 'Ör', 'Bråna']
-        pickup_thursday = ['Rottne', 'Tjureda', 'Växjö c', 'Linneuniversitetet']
+        pickup_thursday = ['Rottne', 'Tjureda', 'Växjö c', 'Linneuniversitetet', 'Biskopshagen']
         pickup_all = pickup_thursday + pickup_friday
         matrix_total = []
         matrix_total << ["V#{week}", *pickup_all, ""]
