@@ -12,11 +12,11 @@ module Leverans
         pickup_thursday = ['Rottne', 'Tjureda', 'Växjö c', 'Linneuniversitetet', 'Biskopshagen']
         pickup_all = pickup_thursday + pickup_friday
         matrix_total = []
-        matrix_total << ["V#{week}", *pickup_all, ""]
+        matrix_total << ["<b>V#{week}</b>", *pickup_all.map{|loc| "<font size='10'>#{loc}</font>"}, ""]
         matrix_thursday = []
-        matrix_thursday << ["V#{week}", *pickup_thursday, ""]
+        matrix_thursday << ["<b>V#{week}</b>", *pickup_thursday.map{|loc| "<font size='10'>#{loc}</font>"}, ""]
         matrix_friday = []
-        matrix_friday << ["V#{week}", *pickup_friday, ""]
+        matrix_friday << ["<b>V#{week}</b>", *pickup_friday.map{|loc| "<font size='10'>#{loc}</font>"}, ""]
 
         @users.by_share.each do |share, users|
           m_to = Hash.new{0}
@@ -37,11 +37,11 @@ module Leverans
 
         @document.text "<font size='20'><b>Vecka #{week}</b></font>", inline_format: true
 
-        @document.table(matrix_total)
+        @document.table(matrix_total, {cell_style: {inline_format: true}})
         @document.text "\n<b>Torsdagar</b>", inline_format: true
-        @document.table(matrix_thursday)
+        @document.table(matrix_thursday, {cell_style: {inline_format: true}})
         @document.text "\n<b>Fredagar</b>", inline_format: true
-        @document.table(matrix_friday)
+        @document.table(matrix_friday, {cell_style: {inline_format: true}})
 
         @document.move_down(20)
 
