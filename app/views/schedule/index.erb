@@ -44,7 +44,7 @@ Svinn vill vi undvika, så vill du avboka fler än 4 lådor, eller vill du som i
       <% ws.each do |week, value| %>
         <td style="text-align:center;" class="week<%= !week_is_disabled(week) ? '' : ' disabled' %><%= week.to_i == DateTime.now.cweek ? ' current' : '' %>">
           <% if week_is_disabled(week) %>
-          <input type="hidden" name="schedule[<%= index %>]" value="<%=week%>">
+          <input type="hidden" name="schedule[<%= index %>]" value="<%= value%>">
           <% end %>
           <%= check_box_tag "schedule[#{index}]", checked: value, disabled: week_is_disabled(week), value: value %>
           <% index += 1 %>
