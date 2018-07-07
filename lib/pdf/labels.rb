@@ -24,8 +24,15 @@ module Leverans
 
         # Sortering
         # Utlamningsplats - andel
-        # Helst ska utlamningsplatserna vara sorterasde i ordningen Tolg, Lädja, Ör och sen resten
-        @users = users.sort_by(&:pickup)
+        #@users = users.sort_by(&:pickup)
+        pickup_thursday = ['Rottne', 'Tjureda', 'Växjö c', 'Linneuniversitetet', 'Biskopshagen']
+        pickup_friday = ['Tolg', 'Lädja', 'Ör', 'Bråna']
+        @users = []
+        (pickup_thursday+pickup_friday).each do |location|
+          users.each do |user|
+            @users << user if user.pickup.downcase == location.downcase
+          end
+        end
         @basedir = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'public', 'images'))
         @week = week
       end
