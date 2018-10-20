@@ -49,6 +49,8 @@ gem 'prawn'
 gem 'prawn-table'
 gem "prawn-labels"
 
+gem 'twilio-ruby'
+
 group :development do
   gem 'guard'
   gem 'guard-rspec'
