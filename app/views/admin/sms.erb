@@ -1,0 +1,67 @@
+<h1>Skicka SMS</h1>
+
+<% if sms %>
+  <div class="panel panel-defaul">
+    <div class="panel-body">
+      Skickade sms:
+      <table class="table table-condensed">
+      <% sms.each do |status| %>
+        <tr class="<%=status.css_class%>">
+          <td>
+            <% if status.status == :error%>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <% elsif status.status == :success %>
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+          <% end %>
+          </td>
+          <td><%= status.recipient.name%></td>
+          <td><%= status.recipient.phone%></td>
+          <td><%= status.message %></td>
+      <% end %>
+        </tr>
+      </table>
+    </div>
+  </div>
+<% end %>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+  <% form_tag(url_for(:admin, :sms)) { %>
+    <div class="form-group <%= validation.has_key?("message") ? 'has-error' : ''%>">
+      <label for="message">Meddelande</label>
+      <%= text_area_tag(:message, class: 'form-control') %>
+      <% if validation.has_key?("message") %>
+      <span id="helpBlock2" class="help-block"><%= validation["message"] %></span>
+      <% end %>
+    </div>
+    <div class="form-group <%= validation.has_key?("recipients") ? 'has-error' : ''%>">
+      <label for="to">Mottagare</label>
+      <select multiple class="form-control" name="recipients[]">
+        <% users.pickups.each do |pickup|  %>
+          <option value="pickup,<%= pickup %>">Plats: <%= pickup %></option>
+        <% end %>
+        <% settings.pickup_weekday.values.uniq.each do |day| %>
+          <option value="weekday,<%=day%>">Dag: <%= settings.weekday[day] %></option>
+        <% end %>
+      </select>
+      <% if validation.has_key?("recipients") %>
+      <span id="helpBlock2" class="help-block"><%= validation["recipients"] %></span>
+      <% end %>
+    </div>
+
+    <div class="checkbox <%= validation.has_key?("sure") ?  'has-error' : '' %>">
+      <label>
+        <%= check_box_tag(:sure) %>
+        <% if validation.has_key?("sure") %>
+          DU MÅSTE GODKÄNNA FÖR ATT SKICKA
+        <% else %>
+          Vill du skicka?
+      <% end %>
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Skicka</button>
+  <% } %>
+  </div>
+</div>
