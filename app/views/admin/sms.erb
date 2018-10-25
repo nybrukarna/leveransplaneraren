@@ -31,13 +31,13 @@
       <label>
         <%= check_box_tag(:sure) %>
         <% if validation.has_key?("sure") %>
-          DU MÅSTE GODKÄNNA FÖR ATT SKICKA
+          Du måste godkänna för att skicka!
         <% else %>
           Vill du skicka?
       <% end %>
       </label>
     </div>
-    <button type="submit" class="btn btn-primary">Skicka</button>
+    <button type="submit" class="btn btn-primary" onclick="this.disabled=true; this.value='Var god vänta.';">Skicka</button>
   <% } %>
   </div>
 </div>
