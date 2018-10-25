@@ -43,7 +43,7 @@ module Leverans
     end
 
     def weeks
-      @header[4..-1]
+      @header[5..-1]
     end
 
     def share(type)
@@ -52,6 +52,12 @@ module Leverans
 
     def pickup(type)
       @users.select { |u| u.pickup == type }
+    end
+
+    def weekday(day)
+      pickups = Leverans::App.settings.pickup_weekday.select { |k,v| v == day.to_i }
+      logger.debug pickups
+      @users.select { |u| pickups.include?(u.pickup) }
     end
 
     def week(week)
@@ -75,7 +81,7 @@ module Leverans
   end
 
   class User
-    attr_reader :row_number, :name, :email, :share, :pickup
+    attr_reader :row_number, :name, :email, :share, :pickup, :phone
 
     SHARE_SORT = ['1 andel', '2 andelar', '3 andelar']
 
@@ -85,8 +91,9 @@ module Leverans
       @worksheet = worksheet
       @name = @user[0]
       @email = @user[1]
-      @share = @user[2]
-      @pickup = @user[3]
+      @phone = @user[2]
+      @share = @user[3]
+      @pickup = @user[4]
     end
 
     def share_id
