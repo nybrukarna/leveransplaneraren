@@ -1,30 +1,6 @@
 <h1>Skicka SMS</h1>
 
-<% if sms %>
-  <div class="panel panel-defaul">
-    <div class="panel-body">
-      Skickade sms:
-      <table class="table table-condensed">
-      <% sms.each do |status| %>
-        <tr class="<%=status.css_class%>">
-          <td>
-            <% if status.status == :error%>
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <% elsif status.status == :success %>
-            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-          <% else %>
-            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-          <% end %>
-          </td>
-          <td><%= status.recipient.name%></td>
-          <td><%= status.recipient.phone%></td>
-          <td><%= status.message %></td>
-      <% end %>
-        </tr>
-      </table>
-    </div>
-  </div>
-<% end %>
+<%= partial 'admin/sms_status', locals: { sms: sms } unless sms.nil? ||  sms.empty? %>
 
 <div class="panel panel-default">
   <div class="panel-body">
