@@ -25,6 +25,7 @@ module Leverans
         # Sortering
         # Utlamningsplats - andel
         #@users = users.sort_by(&:pickup)
+        # TODO: Use settings.pickup_weekday instead
         pickup_thursday = ['Rottne', 'Tjureda', 'Växjö c', 'Linneuniversitetet', 'Biskopshagen']
         pickup_friday = ['Tolg', 'Lädja', 'Ör', 'Bråna']
         @users = []

@@ -8,9 +8,11 @@ module Leverans
         Prawn::Font::AFM.hide_m17n_warning = true
         @document = Prawn::Document.new
         @users = users.week(week)
+        # TODO: Fix and use settings.pickup_weekday
         pickup_friday = ['Tolg', 'Lädja', 'Ör', 'Bråna']
         pickup_thursday = ['Rottne', 'Tjureda', 'Växjö c', 'Linneuniversitetet', 'Biskopshagen']
         pickup_all = pickup_thursday + pickup_friday
+
         matrix_total = []
         matrix_total << ["<b>V#{week}</b>", *pickup_all.map{|loc| "<font size='10'>#{loc}</font>"}, ""]
         matrix_thursday = []
