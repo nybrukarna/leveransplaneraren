@@ -6,7 +6,7 @@ module Leverans
   class Sheet
     attr_accessor :weeks, :users
     def initialize(sheet)
-      @session_file = 'nybrukarna-f38b5301abf8.json'
+      @session_file = 'nybrukarna-819a30e26eb7.json'
       @worksheet = session.spreadsheet_by_key(sheet).worksheets[0]
       @users = Leverans::Users.new(@worksheet.rows, worksheet: @worksheet)
       @weeks = @users.weeks
