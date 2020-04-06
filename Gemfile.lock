@@ -85,7 +85,7 @@ GEM
     memoist (0.15.0)
     method_source (0.8.2)
     mime-types (2.99.3)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.10.1)
     moneta (0.8.1)
     multi_json (1.12.1)
@@ -93,8 +93,8 @@ GEM
     mustermann19 (0.4.4)
       enumerable-lazy
     nenv (0.3.0)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.9)
+      mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -154,7 +154,7 @@ GEM
     rack-test (0.6.3)
       rack (>= 1.0)
     raindrops (0.18.0)
-    rake (12.0.0)
+    rake (12.3.3)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
@@ -225,7 +225,7 @@ DEPENDENCIES
   prawn-table
   pry
   rack-test
-  rake
+  rake (~> 12.0)
   rspec
   sass
   sinatra-flash
@@ -234,4 +234,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.16.0
+   1.17.2

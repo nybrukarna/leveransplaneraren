@@ -15,7 +15,7 @@ source 'https://rubygems.org'
 gem 'pry'
 
 # Project requirements
-gem 'rake'
+gem 'rake', '~> 12.0'
 
 gem 'google_drive'
 gem 'sinatra-flash'
