@@ -5,6 +5,7 @@ Padrino.configure_apps do
         'Rottne' => 4,
         'Tjureda' => 4,
         'Växjö c' => 4,
+        'Lingonvägen' => 4,
         'Linneuniversitetet' => 4,
         'Biskopshagen' => 4,
         'Tolg' => 5,
