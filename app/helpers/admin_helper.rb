@@ -7,6 +7,7 @@ module Leverans
         phone = phone.gsub(/[\s\-]/, '')
         phone = '+'+phone[2..-1] if phone[0..1] == '00'
         phone = '+46'+phone[1..-1] if phone[0..1] == '07'
+        phone = '+'+phone if phone[0] != '+'
         phone
       end
     end
